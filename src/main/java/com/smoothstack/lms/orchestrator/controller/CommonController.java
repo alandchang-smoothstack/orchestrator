@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,9 @@ public class CommonController {
 					Object.class);
 		} catch (HttpClientErrorException e) {
 			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -39,6 +43,9 @@ public class CommonController {
 					object, Object.class);
 		} catch (HttpClientErrorException e) {
 			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -50,6 +57,9 @@ public class CommonController {
 					HttpMethod.valueOf(request.getMethod()), new HttpEntity<Object>(object), Object.class);
 		} catch (HttpClientErrorException e) {
 			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -60,6 +70,9 @@ public class CommonController {
 					HttpMethod.valueOf(request.getMethod()), new HttpEntity<Object>(null), Object.class);
 		} catch (HttpClientErrorException e) {
 			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -70,49 +83,101 @@ public class CommonController {
 					Object.class);
 		} catch (HttpClientErrorException e) {
 			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
 	@PostMapping("/librarian/**")
 	public ResponseEntity<Object> handleLibrarianPostRequest(@RequestBody Object object, HttpServletRequest request) {
-		return restTemplate.postForEntity(String.format("http://librarian-service%s", request.getRequestURI()),
-				new HttpEntity<Object>(object), Object.class);
+		try {
+			return restTemplate.postForEntity(String.format("http://librarian-service%s", request.getRequestURI()),
+					new HttpEntity<Object>(object), Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@PutMapping("/librarian/**")
 	public ResponseEntity<Object> handleLibrarianPutRequest(@RequestBody Object object, HttpServletRequest request) {
-		return restTemplate.exchange(String.format("http://librarian-service%s", request.getRequestURI()),
-				HttpMethod.PUT, new HttpEntity<Object>(object), Object.class);
+		try {
+			return restTemplate.exchange(String.format("http://librarian-service%s", request.getRequestURI()),
+					HttpMethod.PUT, new HttpEntity<Object>(object), Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@DeleteMapping("/librarian/**")
 	public ResponseEntity<Object> handleLibrarianDeleteRequest(HttpServletRequest request) {
-		return restTemplate.exchange(String.format("http://librarian-service%s", request.getRequestURI()),
-				HttpMethod.DELETE, new HttpEntity<Object>(null), Object.class);
+		try {
+			return restTemplate.exchange(String.format("http://librarian-service%s", request.getRequestURI()),
+					HttpMethod.DELETE, new HttpEntity<Object>(null), Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@GetMapping("/borrower/**")
 	public ResponseEntity<Object> handleBorrowerGetRequest(HttpServletRequest request) {
-		return restTemplate.getForEntity(String.format("http://borrower-service%s", request.getRequestURI()),
-				Object.class);
+		try {
+			return restTemplate.getForEntity(String.format("http://borrower-service%s", request.getRequestURI()),
+					Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@PostMapping("/borrower/**")
 	public ResponseEntity<Object> handleBorrowerPostRequest(@RequestBody Object object, HttpServletRequest request) {
-		return restTemplate.postForEntity(String.format("http://borrower-service%s", request.getRequestURI()), object,
-				Object.class);
+		try {
+			return restTemplate.postForEntity(String.format("http://borrower-service%s", request.getRequestURI()),
+					object, Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@PutMapping("/borrower/**")
 	public ResponseEntity<Object> handleBorrowerPutRequest(@RequestBody Object object, HttpServletRequest request) {
-		return restTemplate.exchange(String.format("http://borrower-service%s", request.getRequestURI()),
-				HttpMethod.PUT, new HttpEntity<Object>(object), Object.class);
+		try {
+			return restTemplate.exchange(String.format("http://borrower-service%s", request.getRequestURI()),
+					HttpMethod.PUT, new HttpEntity<Object>(object), Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@DeleteMapping("/borrower/**")
 	public ResponseEntity<Object> handleBorrowerDeleteRequest(HttpServletRequest request) {
-		return restTemplate.exchange(String.format("http://borrower-service%s", request.getRequestURI()),
-				HttpMethod.DELETE, new HttpEntity<Object>(null), Object.class);
+		try {
+			return restTemplate.exchange(String.format("http://borrower-service%s", request.getRequestURI()),
+					HttpMethod.DELETE, new HttpEntity<Object>(null), Object.class);
+		} catch (HttpClientErrorException e) {
+			return ResponseEntity.status(e.getStatusCode()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 }
