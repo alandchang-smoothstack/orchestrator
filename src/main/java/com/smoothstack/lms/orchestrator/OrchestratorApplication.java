@@ -15,7 +15,7 @@ public class OrchestratorApplication {
 
 	@LoadBalanced
 	@Bean
-	private RestTemplate restTemplate() {
+	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 
